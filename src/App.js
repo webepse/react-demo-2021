@@ -34,12 +34,14 @@ class App extends Component {
     league.membre1.age +=nb
     this.setState({league})
   }
-
+  
   render() { 
+    const {title} = this.props
     return (
       <Fragment>
           <div className="App">
             <h1>React App</h1>
+            <h2>{title}</h2>
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptas aperiam est provident reiciendis! Architecto nam natus temporibus veritatis, nisi velit odio, magni vitae praesentium est accusantium sequi ullam inventore soluta!</p>
           </div>
          <Membre 
