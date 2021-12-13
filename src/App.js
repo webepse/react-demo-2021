@@ -4,7 +4,7 @@ import './App.css'
 import Membre from './components/Membre'
 import Button from './components/Button'
 
-const league = {
+var league = {
   membre1 : {
     nom: 'Batman',
     age: 46
@@ -53,6 +53,20 @@ class App extends Component {
   //  this.setState({isShow:isShow})
    this.setState({isShow})
   }
+
+  handleChange = (event,id) => {
+    const league = {...this.state.league}
+    const nom = event.target.value 
+    league[id].nom = nom
+    this.setState({league})
+  }
+
+  hideName = (id) =>{
+    const league = {...this.state.league}
+    league[id].nom ='X'
+    league[id].age =0
+    this.setState({league})
+  }
   
   
   render() { 
@@ -64,7 +78,12 @@ class App extends Component {
     // <Membre age={this.state.league[iteration].age} />
     const liste = Object.keys(this.state.league).map(iteration => {
       return (
-        <Membre key={iteration} age={this.state.league[iteration].age} nom={this.state.league[iteration].nom} />
+        <Membre 
+          key={iteration} 
+          handleChange={(event) => this.handleChange(event,iteration)}
+          hideName={() => this.hideName(iteration)}
+          age={this.state.league[iteration].age} 
+          nom={this.state.league[iteration].nom} />
       )
     })
 
@@ -77,17 +96,7 @@ class App extends Component {
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptas aperiam est provident reiciendis! Architecto nam natus temporibus veritatis, nisi velit odio, magni vitae praesentium est accusantium sequi ullam inventore soluta!</p>
           </div>
         {liste}
-        <Membre 
-          age="3"
-          nom="Napoléon"
-        >
-          {
-            this.state.isShow ? <strong>Je suis l'empereur</strong> : null
-          }
-          <button onClick={this.handleShow}>
-            {this.state.isShow ? 'Cacher' : 'Montrer'}
-          </button>
-        </Membre>
+    
        
         
          <Button 
