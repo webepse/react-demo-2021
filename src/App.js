@@ -26,7 +26,19 @@ const league = {
 class App extends Component {
   state = {
     league : league,
-    plus : 4
+    plus : 2
+  }
+  
+  componentDidMount() {
+    console.log('montage')
+  }
+
+  componentDidUpdate() {
+    console.log('je recharge mon composant')
+  }
+
+  componentWillUnmount() {
+    console.log('démontage')
   }
 
   handleClick = (nb) =>{
@@ -37,6 +49,18 @@ class App extends Component {
   
   render() { 
     const {title} = this.props
+    // ["membre1","membre2","membre3","membre4"]
+    // je boucle mon tableau pour récup les keys et aller chercher dans mon state avec les clées les valeurs
+    // <Membre age={this.state.league.membre1.age} />
+    // <Membre age={this.state.league.iteration.age} />
+    // <Membre age={this.state.league[iteration].age} />
+    const liste = Object.keys(this.state.league).map(iteration => {
+      return (
+        <Membre age={this.state.league[iteration].age} nom={this.state.league[iteration].nom} />
+      )
+    })
+
+
     return (
       <Fragment>
           <div className="App">
@@ -44,23 +68,9 @@ class App extends Component {
             <h2>{title}</h2>
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptas aperiam est provident reiciendis! Architecto nam natus temporibus veritatis, nisi velit odio, magni vitae praesentium est accusantium sequi ullam inventore soluta!</p>
           </div>
-         <Membre 
-          nom={this.state.league.membre1.nom} 
-          age={this.state.league.membre1.age} 
-         />
-         <Membre 
-          nom={this.state.league.membre2.nom} 
-          age={this.state.league.membre2.age} 
-         />
-         <Membre 
-          nom={this.state.league.membre3.nom} 
-          age={this.state.league.membre3.age} 
-         />
-         <Membre 
-          nom={this.state.league.membre4.nom} 
-          age={this.state.league.membre4.age} 
-         />
-
+        {liste}
+       
+        
          <Button 
             plus={this.state.plus}
             vieillir={() => this.handleClick(this.state.plus)}
@@ -72,3 +82,5 @@ class App extends Component {
 }
  
 export default App;
+
+
