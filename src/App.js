@@ -26,7 +26,8 @@ const league = {
 class App extends Component {
   state = {
     league : league,
-    plus : 2
+    plus : 2,
+    isShow: false
   }
   
   componentDidMount() {
@@ -46,6 +47,13 @@ class App extends Component {
     league.membre1.age +=nb
     this.setState({league})
   }
+
+  handleShow = () => {
+   const isShow = !this.state.isShow // ! retourne l'inverse (toggle)
+  //  this.setState({isShow:isShow})
+   this.setState({isShow})
+  }
+  
   
   render() { 
     const {title} = this.props
@@ -56,7 +64,7 @@ class App extends Component {
     // <Membre age={this.state.league[iteration].age} />
     const liste = Object.keys(this.state.league).map(iteration => {
       return (
-        <Membre age={this.state.league[iteration].age} nom={this.state.league[iteration].nom} />
+        <Membre key={iteration} age={this.state.league[iteration].age} nom={this.state.league[iteration].nom} />
       )
     })
 
@@ -69,6 +77,17 @@ class App extends Component {
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptas aperiam est provident reiciendis! Architecto nam natus temporibus veritatis, nisi velit odio, magni vitae praesentium est accusantium sequi ullam inventore soluta!</p>
           </div>
         {liste}
+        <Membre 
+          age="3"
+          nom="Napoléon"
+        >
+          {
+            this.state.isShow ? <strong>Je suis l'empereur</strong> : null
+          }
+          <button onClick={this.handleShow}>
+            {this.state.isShow ? 'Cacher' : 'Montrer'}
+          </button>
+        </Membre>
        
         
          <Button 
