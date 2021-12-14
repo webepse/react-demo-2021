@@ -26,7 +26,7 @@ var league = {
 class App extends Component {
   state = {
     league : league,
-    plus : 2,
+    plus : 5,
     isShow: false
   }
   
@@ -42,9 +42,9 @@ class App extends Component {
     console.log('démontage')
   }
 
-  handleClick = (nb) =>{
+  handleClick = (id,nb) =>{
     const league = {...this.state.league}
-    league.membre1.age +=nb
+    league[id].age += nb
     this.setState({league})
   }
 
@@ -82,6 +82,8 @@ class App extends Component {
           key={iteration} 
           handleChange={(event) => this.handleChange(event,iteration)}
           hideName={() => this.hideName(iteration)}
+          handleClick={()=>this.handleClick(iteration,this.state.plus)}
+          plus={this.state.plus}
           age={this.state.league[iteration].age} 
           nom={this.state.league[iteration].nom} />
       )
@@ -99,10 +101,7 @@ class App extends Component {
     
        
         
-         <Button 
-            plus={this.state.plus}
-            vieillir={() => this.handleClick(this.state.plus)}
-         />
+        
       </Fragment>
     )
     // React.createElement('div',{className: 'App'}, React.createElement('h1',null,'React App'))
